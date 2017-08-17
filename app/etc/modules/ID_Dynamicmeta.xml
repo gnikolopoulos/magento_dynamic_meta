@@ -1,0 +1,8 @@
+<config>
+	<modules>
+		<ID_Dynamicmeta>
+			<active>true</active>
+			<codePool>local</codePool>
+		</ID_Dynamicmeta>
+	</modules>
+</config>

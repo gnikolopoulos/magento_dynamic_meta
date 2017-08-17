@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+        <ID_Dynamicmeta>
+            <version>0.1.0</version>
+        </ID_Dynamicmeta>
+    </modules>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ID_Dynamicmeta before="Mage_Adminhtml">ID_Dynamicmeta_Adminhtml</ID_Dynamicmeta>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <events>
+            <core_block_abstract_prepare_layout_before>
+                <observers>
+                    <dynamicmeta>
+                        <class>ID_Dynamicmeta_Model_Observer</class>
+                        <method>addActions</method>
+                    </dynamicmeta>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+        </events>
+    </adminhtml>
+
+    <frontend>
+        <events>
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <producttitle>
+                        <type>singleton</type>
+                        <class>ID_Dynamicmeta_Model_Observer</class>
+                        <method>updateTitle</method>
+                    </producttitle>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+        </events>
+    </frontend>
+
+	<global>
+        <models>
+            <dynamicmeta>
+                <class>ID_Dynamicmeta_Model</class>
+            </dynamicmeta>
+        </models>
+
+        <events>
+            <catalog_product_save_before>
+                <observers>
+                    <createurl>
+                        <type>singleton</type>
+                        <class>ID_Dynamicmeta_Model_Observer</class>
+                        <method>createUrl</method>
+                    </createurl>
+                </observers>
+            </catalog_product_save_before>
+
+            <catalog_product_prepare_save>
+                <observers>
+                    <createurl>
+                        <type>singleton</type>
+                        <class>ID_Dynamicmeta_Model_Observer</class>
+                        <method>createUrl</method>
+                    </createurl>
+                </observers>
+            </catalog_product_prepare_save>
+        </events>
+
+        <helpers>
+            <dynamicmeta>
+                <class>ID_Dynamicmeta_Helper</class>
+            </dynamicmeta>
+        </helpers>
+    </global>
+
+</config>
