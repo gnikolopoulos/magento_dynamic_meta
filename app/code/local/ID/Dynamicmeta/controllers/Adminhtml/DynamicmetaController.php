@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 class ID_Dynamicmeta_Adminhtml_DynamicmetaController extends Mage_Adminhtml_Controller_Action
 {
 
@@ -158,6 +154,11 @@ class ID_Dynamicmeta_Adminhtml_DynamicmetaController extends Mage_Adminhtml_Cont
       Mage::getSingleton('core/session')->addError('No Products Selected');
       return false;
     }
+  }
+  
+  protected function _isAllowed()
+  {
+    return Mage::getSingleton('admin/session')->isAllowed('catalog/products/meta_create');
   }
 
 }
