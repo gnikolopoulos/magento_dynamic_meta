@@ -85,28 +85,30 @@ class ID_Dynamicmeta_Model_Observer
         $block = $observer->getEvent()->getBlock();
         if(get_class($block) =='Mage_Adminhtml_Block_Widget_Grid_Massaction' && $block->getRequest()->getControllerName() == 'catalog_product')
         {
-            $block->addItem('createmeta', array(
-                'label' => 'Create Meta Keywords',
-                'url' => Mage::app()->getStore()->getUrl('*/dynamicmeta/createmeta'),
-            ));
+            if( $this->_isAllowedAction('meta_create') ) {
+                $block->addItem('createmeta', array(
+                    'label' => 'Create Meta Keywords',
+                    'url' => Mage::app()->getStore()->getUrl('*/dynamicmeta/createmeta'),
+                ));
 
-            $block->addItem('createurl', array(
-                'label' => 'Create New URL key',
-                'url' => Mage::app()->getStore()->getUrl('*/dynamicmeta/createurl'),
-            ));
+                $block->addItem('createurl', array(
+                    'label' => 'Create New URL key',
+                    'url' => Mage::app()->getStore()->getUrl('*/dynamicmeta/createurl'),
+                ));
 
-            $block->addItem('insertmeta', array(
-                'label' => 'Insert Meta Keywords',
-                'url' => Mage::app()->getStore()->getUrl('*/dynamicmeta/createmeta'),
-                'additional' => array(
-                    'keywords' => array(
-                        'name' => 'keywords',
-                        'type' => 'text',
-                        'class' => 'required-entry',
-                        'label' => 'Keywords'
-                    )
-                ),
-            ));
+                $block->addItem('insertmeta', array(
+                    'label' => 'Insert Meta Keywords',
+                    'url' => Mage::app()->getStore()->getUrl('*/dynamicmeta/createmeta'),
+                    'additional' => array(
+                        'keywords' => array(
+                            'name' => 'keywords',
+                            'type' => 'text',
+                            'class' => 'required-entry',
+                            'label' => 'Keywords'
+                        )
+                    ),
+                ));
+            }
         }
 
       return $this;
@@ -124,6 +126,13 @@ class ID_Dynamicmeta_Model_Observer
         }
 
         return $this;
+    }
+
+    protected function _isAllowedAction($action)
+    {
+        return Mage::getSingleton('admin/session')->isAllowed(
+            'catalog/products/' . $action
+        );
     }
 
 }
