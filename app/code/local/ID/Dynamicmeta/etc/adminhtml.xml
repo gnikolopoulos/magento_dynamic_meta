@@ -9,12 +9,25 @@
                             <config>
                                 <children>
                                     <dynamicmeta translate="title" module="dynamicmeta">
-                                        <title>Dynamic Meta Options</title>
+                                        <title>Dynamic Meta</title>
                                     </dynamicmeta>
                                 </children>
                             </config>
                         </children>
                     </system>
+
+                    <catalog>
+                        <children>
+                            <products>
+                                <children>
+                                    <meta_create>
+                                        <title translate="title">Create/Update Meta Keywords</title>
+                                        <sort_order>10</sort_order>
+                                    </meta_create>
+                                </children>
+                            </products>
+                        </children>
+                    </catalog>
                 </children>
             </admin>
         </resources>
